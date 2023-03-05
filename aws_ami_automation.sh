@@ -12,7 +12,7 @@ Project_name=$(aws ec2 describe-tags --filters "Name=resource-id,Values=$id" "Na
 if [[ "$Project_name" =~ "${f3}" ]];
 then
 	instance_name=$(aws ec2 describe-tags --filters "Name=resource-id,Values=$id" "Name=key,Values=Name" --query Tags[0].Value --output text --profile "$f2" --region "$f1");
-	ami_id=$(aws ec2 create-image --instance-id "$id" --no-reboot --name "${instance_name}-back-testonly-v1" --description "Created For Backup from cli on `date`" --output text --profile sandbox-new --region "$f1");
+	ami_id=$(aws ec2 create-image --instance-id "$id" --no-reboot --name "${instance_name}-back-testonly-v1" --description "Created For Backup from cli on `date`" --output text --profile "$f2" -new --region "$f1");
 	echo $id $instance_name $ami_id;
 fi
 done
